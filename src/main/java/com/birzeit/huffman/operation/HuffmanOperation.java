@@ -1,5 +1,6 @@
 package com.birzeit.huffman.operation;
 
+import com.birzeit.huffman.compression.HuffmanCompressor;
 import com.birzeit.huffman.dto.HuffmanNode;
 import com.birzeit.huffman.dto.Node;
 import com.birzeit.huffman.file.BinaryStreamOut;
@@ -50,6 +51,7 @@ public class HuffmanOperation {
         System.out.println("------------------------");
         System.out.println("Print File name ");
         System.out.println(FILE_NAME);
+        compress();
 
     }
 
@@ -62,19 +64,19 @@ public class HuffmanOperation {
                 outputStream = new FileOutputStream(INPUT_COMPRESSION_FILE); //binary and bit stream to write in file
                 BinaryStreamOut binaryStream = new BinaryStreamOut(outputStream);
                 BitOutputStream bitOutputStream = new BitOutputStream(outputStream); // write string in file
-                initializePriorityQueue();
-                buildHuffmanTree();
-                getHeaderLength(huffmanTreeRoot);
-                bitOutputStream.writeH(new StringBuilder(name_of_file + ":" + headLength + ":"));
-                buildHeader(huffmanTreeRoot, binaryStream);
-                huffmanCodes = addCode(huffmanTreeRoot);
-                writeCompressedData(bitOutputStream, binaryStream);
-                actualfileLength = (int) file.length();  // length of new file
-                rate = ((double) (bytes_in_file.length - actualfileLength) / bytes_in_file.length) * 100;
-                String ratio = rate + "";
-                if (ratio.length() > 5) {
-                    ratio = ratio.substring(0, 5);
-                }
+                HuffmanCompressor.initializePriorityQueue();
+//                buildHuffmanTree();
+//                getHeaderLength(huffmanTreeRoot);
+//                bitOutputStream.writeH(new StringBuilder(name_of_file + ":" + headLength + ":"));
+//                buildHeader(huffmanTreeRoot, binaryStream);
+//                huffmanCodes = addCode(huffmanTreeRoot);
+//                writeCompressedData(bitOutputStream, binaryStream);
+//                actualfileLength = (int) file.length();  // length of new file
+//                rate = ((double) (bytes_in_file.length - actualfileLength) / bytes_in_file.length) * 100;
+//                String ratio = rate + "";
+//                if (ratio.length() > 5) {
+//                    ratio = ratio.substring(0, 5);
+//                }
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
