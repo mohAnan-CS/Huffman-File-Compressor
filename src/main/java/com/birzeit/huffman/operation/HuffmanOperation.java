@@ -45,6 +45,7 @@ public class HuffmanOperation {
         System.out.println("Print Number of Different Bytes: " + NUMBER_DIFFERENT_BYTES);
         System.out.println("------------------------");
         System.out.println("Print Bytes in File");
+        System.out.println("Length: " + BYTES_IN_FILE.length);
         for (int i = 0; i < BYTES_IN_FILE.length; i++) {
             System.out.println("Byte: " + BYTES_IN_FILE[i]);
         }
@@ -65,7 +66,7 @@ public class HuffmanOperation {
                 BinaryStreamOut binaryStream = new BinaryStreamOut(outputStream);
                 BitOutputStream bitOutputStream = new BitOutputStream(outputStream); // write string in file
                 HuffmanCompressor.initializePriorityQueue();
-//                buildHuffmanTree();
+                HuffmanCompressor.buildHuffmanTree();
 //                getHeaderLength(huffmanTreeRoot);
 //                bitOutputStream.writeH(new StringBuilder(name_of_file + ":" + headLength + ":"));
 //                buildHeader(huffmanTreeRoot, binaryStream);

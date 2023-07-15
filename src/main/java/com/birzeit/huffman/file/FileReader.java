@@ -31,6 +31,7 @@ public class FileReader {
             if (HuffmanOperation.FREQ_ARR[i] > 0)
                 HuffmanOperation.NUMBER_DIFFERENT_BYTES++;   // if freq[i] > 0 this mean a new byte in file
 
+        System.out.println("Number of different bytes: " + HuffmanOperation.NUMBER_DIFFERENT_BYTES);
     }
 
 }

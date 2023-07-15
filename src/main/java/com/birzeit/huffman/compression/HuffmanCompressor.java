@@ -17,4 +17,22 @@ public class HuffmanCompressor {
             if (HuffmanOperation.FREQ_ARR[i] > 0)
                 HuffmanOperation.HEAP.add(new HuffmanNode(HuffmanOperation.FREQ_ARR[i], (byte) i, true));
     }
+
+    public static void buildHuffmanTree() {  // n*log n
+
+        System.out.println("Building Huffman Tree...");
+
+        while (HuffmanOperation.HEAP.size() > 1) {
+            HuffmanNode node = new HuffmanNode(0);
+            HuffmanNode left = (HuffmanNode) HuffmanOperation.HEAP.poll(); //log n
+            HuffmanNode right = (HuffmanNode) HuffmanOperation.HEAP.poll();
+            node.addLift(left);
+            node.addRight(right);
+            node.setFreq(left.getFreq()+right.getFreq());
+            HuffmanOperation.HEAP.add(node);
+        }
+
+        HuffmanOperation.HUFFMAN_TREE_ROOT = (HuffmanNode) HuffmanOperation.HEAP.peek();
+
+    }
 }
