@@ -1,8 +1,10 @@
 package com.birzeit.huffman.compression;
 
 import com.birzeit.huffman.dto.HuffmanNode;
+import com.birzeit.huffman.file.BinaryStreamOut;
 import com.birzeit.huffman.operation.HuffmanOperation;
 
+import java.io.IOException;
 import java.util.PriorityQueue;
 
 public class HuffmanCompressor {
@@ -51,5 +53,34 @@ public class HuffmanCompressor {
             getHeaderLength(huffmanTreeRoot.getRight());
         }
 
+    }
+
+    public static void buildHeader(HuffmanNode huffmanTreeRoot, BinaryStreamOut bos) throws IOException {
+
+        System.out.println("Building Header ...");
+
+        if (huffmanTreeRoot.isLeaf()) { //if node leaf print "1 value of node " else print "0"
+            bos.write(true);
+            String byteInBinaryAsString = convertByteToBitString(huffmanTreeRoot.getVal());
+            for (int i = 0; i < byteInBinaryAsString.length(); i++) {
+                if (byteInBinaryAsString.charAt(i) == '1')
+                    bos.write(true);
+                else
+                    bos.write(false);
+            }
+            return;
+        }
+        else
+            bos.write(false);
+        buildHeader(huffmanTreeRoot.getLeft(), bos);
+        buildHeader(huffmanTreeRoot.getRight(), bos);
+    }
+
+    private static String convertByteToBitString(byte b) { // convert byte to bits in string
+        StringBuilder sb = new StringBuilder();
+        for (int i = 7; i >= 0; --i) {
+            sb.append(b >>> i & 1);
+        }
+        return sb.toString();
     }
 }

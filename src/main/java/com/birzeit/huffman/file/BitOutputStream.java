@@ -12,6 +12,9 @@ public class BitOutputStream {
     }
 
     public void writeH(StringBuilder header) throws IOException {
+
+        System.out.println("Writing header ...");
+
         for (int i = 0; i < header.length(); i++) {
             out.write((byte) header.charAt(i));
         }
