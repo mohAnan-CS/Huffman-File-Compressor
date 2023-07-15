@@ -35,4 +35,21 @@ public class HuffmanCompressor {
         HuffmanOperation.HUFFMAN_TREE_ROOT = (HuffmanNode) HuffmanOperation.HEAP.peek();
 
     }
+
+    public static void getHeaderLength(HuffmanNode huffmanTreeRoot) {
+
+        System.out.println("Getting Header Length...");
+
+        if (huffmanTreeRoot == null)
+            return;
+        if (huffmanTreeRoot.isLeaf()) {
+            HuffmanOperation.HEADER_LENGTH += 9;
+            return;
+        } else {
+            HuffmanOperation.HEADER_LENGTH++;
+            getHeaderLength(huffmanTreeRoot.getLeft());
+            getHeaderLength(huffmanTreeRoot.getRight());
+        }
+
+    }
 }

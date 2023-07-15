@@ -67,7 +67,8 @@ public class HuffmanOperation {
                 BitOutputStream bitOutputStream = new BitOutputStream(outputStream); // write string in file
                 HuffmanCompressor.initializePriorityQueue();
                 HuffmanCompressor.buildHuffmanTree();
-//                getHeaderLength(huffmanTreeRoot);
+                HuffmanCompressor.getHeaderLength(HUFFMAN_TREE_ROOT);
+                System.out.println("Header Length: " + HEADER_LENGTH);
 //                bitOutputStream.writeH(new StringBuilder(name_of_file + ":" + headLength + ":"));
 //                buildHeader(huffmanTreeRoot, binaryStream);
 //                huffmanCodes = addCode(huffmanTreeRoot);
