@@ -1,5 +1,7 @@
 package com.birzeit.huffman.file;
 
+import com.birzeit.huffman.operation.HuffmanOperation;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,7 +11,7 @@ public class FileReader {
 
     private static  void readFile(File file){
 
-        bytes_in_file =new byte[(int)file.length()];
+        HuffmanOperationbytes_in_file =new byte[(int)file.length()];
         //read file in bytes
         try(FileInputStream inputStream= new FileInputStream(file)) {
             inputStream.read(bytes_in_file);

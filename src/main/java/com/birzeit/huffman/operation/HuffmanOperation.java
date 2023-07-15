@@ -9,19 +9,19 @@ import java.util.PriorityQueue;
 
 public class HuffmanOperation {
 
-    private static int HEADER_LENGTH = 0;
-    private static int ACTUAL_FILE_LENGTH;
-    private static double RATE = 0;
-    private static String HEADER_AS_STRING = "";
-    private static int FREQ[];
-    private static byte[] BYTES_IN_FILE;
-    private static int NUMBER_DIFFERENT_BYTES = 0;
-    private static PriorityQueue<HuffmanNode> HEAP;
-    private static HuffmanNode HUFFMAN_TREE_ROOT;
-    private static ArrayList<Node> HUFFMAN_CODE_LIST;
-    private static File INPUT_COMPRESSION_FILE, INPUT_DECOMPRESSION_FILE;
-    private static String TYPE_FILE = "";
-    private static String HEADER_LENGTH_STRING = "";
-    private static String DATA_LENGTH = "";
+    public static int HEADER_LENGTH = 0;
+    public static int ACTUAL_FILE_LENGTH;
+    public static double RATE = 0;
+    public static String HEADER_AS_STRING = "";
+    public static int[] FREQ_ARR;
+    public static byte[] BYTES_IN_FILE;
+    public static int NUMBER_DIFFERENT_BYTES = 0;
+    public static PriorityQueue<HuffmanNode> HEAP;
+    public static HuffmanNode HUFFMAN_TREE_ROOT;
+    public static ArrayList<Node> HUFFMAN_CODE_LIST;
+    public static File INPUT_COMPRESSION_FILE, INPUT_DECOMPRESSION_FILE;
+    public static String TYPE_FILE = "";
+    public static String HEADER_LENGTH_STRING = "";
+    public static String DATA_LENGTH = "";
     
 }
