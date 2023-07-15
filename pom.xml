@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.birzeit.huffman/com.birzeit.huffman.HelloApplication</mainClass>
+                            <mainClass>com.birzeit.huffman/com.birzeit.huffman.HuffmanApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

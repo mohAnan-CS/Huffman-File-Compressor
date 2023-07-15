@@ -95,4 +95,8 @@ public class HuffmanOperation {
         }
     }
 
+    public static void decompress(){
+
+    }
+
 }
