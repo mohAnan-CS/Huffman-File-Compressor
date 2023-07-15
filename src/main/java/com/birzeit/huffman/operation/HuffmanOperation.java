@@ -74,12 +74,13 @@ public class HuffmanOperation {
                 HUFFMAN_CODE_LIST = HuffmanCompressor.addCode(HUFFMAN_TREE_ROOT);
                 System.out.println("Get huffman code list ...");
                 HuffmanCompressor.writeCompressedData(bitOutputStream, binaryStream);
-//                actualfileLength = (int) file.length();  // length of new file
-//                rate = ((double) (bytes_in_file.length - actualfileLength) / bytes_in_file.length) * 100;
-//                String ratio = rate + "";
-//                if (ratio.length() > 5) {
-//                    ratio = ratio.substring(0, 5);
-//                }
+                ACTUAL_FILE_LENGTH = (int) INPUT_COMPRESSION_FILE.length();  // length of new file
+                RATE = ((double) (BYTES_IN_FILE.length - ACTUAL_FILE_LENGTH) / BYTES_IN_FILE.length) * 100;
+                String ratio = RATE + "";
+                if (ratio.length() > 5) {
+                    ratio = ratio.substring(0, 5);
+                }
+                System.out.println("Compression Rate : " + RATE);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
