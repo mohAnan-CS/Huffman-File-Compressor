@@ -71,8 +71,10 @@ public class HuffmanOperation {
                 System.out.println("Header Length: " + HEADER_LENGTH);
                 bitOutputStream.writeH(new StringBuilder(FILE_NAME + ":" + HEADER_LENGTH + ":"));
                 HuffmanCompressor.buildHeader(HUFFMAN_TREE_ROOT, binaryStream);
-                //HUFFMAN_CODE_LIST = addCode(huffmanTreeRoot);
-//                writeCompressedData(bitOutputStream, binaryStream);
+                HUFFMAN_CODE_LIST = HuffmanCompressor.addCode(HUFFMAN_TREE_ROOT);
+                System.out.println("Get huffman code list ...");
+
+                HuffmanCompressor.writeCompressedData(bitOutputStream, binaryStream);
 //                actualfileLength = (int) file.length();  // length of new file
 //                rate = ((double) (bytes_in_file.length - actualfileLength) / bytes_in_file.length) * 100;
 //                String ratio = rate + "";

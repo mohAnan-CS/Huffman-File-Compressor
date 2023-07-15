@@ -1,10 +1,13 @@
 package com.birzeit.huffman.compression;
 
 import com.birzeit.huffman.dto.HuffmanNode;
+import com.birzeit.huffman.dto.Node;
 import com.birzeit.huffman.file.BinaryStreamOut;
+import com.birzeit.huffman.file.BitOutputStream;
 import com.birzeit.huffman.operation.HuffmanOperation;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class HuffmanCompressor {
@@ -82,5 +85,29 @@ public class HuffmanCompressor {
             sb.append(b >>> i & 1);
         }
         return sb.toString();
+    }
+
+    public static ArrayList<Node> addCode(HuffmanNode root) {
+        ArrayList<Node> huffmanCodes = new ArrayList<Node>();
+        String s = ("");
+        addCode(root, s, huffmanCodes);
+        return huffmanCodes;
+    }
+
+    private static void addCode(HuffmanNode root, String s, ArrayList<Node> huffmanCodes) {
+        if (!(root.isLeaf())) {
+            String sl = s + "0"; // 0 in left
+            String sr = s + "1"; // 1 in right
+            addCode(root.getLeft(), sl, huffmanCodes);
+            addCode(root.getRight(), sr, huffmanCodes);
+        } else {
+            huffmanCodes.add(new Node(s.toString(), root)); // add node of list with new code
+        }
+    }
+
+    public static void writeCompressedData(BitOutputStream bitOutputStream, BinaryStreamOut binaryStream) {
+
+
+
     }
 }
