@@ -16,5 +16,5 @@ class BitOutputStream {
             out.write((byte) header.charAt(i));
         }
     }
-    
+
 }
