@@ -105,9 +105,29 @@ public class HuffmanCompressor {
         }
     }
 
-    public static void writeCompressedData(BitOutputStream bitOutputStream, BinaryStreamOut binaryStream) {
+    public static void writeCompressedData(BitOutputStream bitStream, BinaryStreamOut binaryStreamOut) throws IOException {
 
+        System.out.println("Writing compress data to file");
 
+        StringBuilder s = new StringBuilder("");
 
+        for (int i = 0; i < HuffmanOperation.BYTES_IN_FILE.length; i++) { //Covert all bytes in file to the new huffman code
+            for (int j = 0; j < HuffmanOperation.HUFFMAN_CODE_LIST.size(); j++) {
+                if ((HuffmanOperation.BYTES_IN_FILE[i]) == HuffmanOperation.HUFFMAN_CODE_LIST.get(j).getVal().getVal()) {
+                    s.append(HuffmanOperation.HUFFMAN_CODE_LIST.get(j).getHuffmanCode());
+                    break;
+                }
+            }
+        }
+        bitStream.writeH(new StringBuilder(HuffmanOperation.BYTES_IN_FILE.length + ":"));
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '1')
+                binaryStreamOut.write(true);
+            else if (s.charAt(i) == '0')
+                binaryStreamOut.write(false);
+        }
+        // After write the file length in the compressed file, we Wrote the header.
+        binaryStreamOut.close();  // print header + compress data
     }
 }
