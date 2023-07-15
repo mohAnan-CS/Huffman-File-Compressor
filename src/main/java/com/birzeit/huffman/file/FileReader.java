@@ -11,6 +11,7 @@ public class FileReader {
 
     public static  void readFile(File file){
 
+        HuffmanOperation.FILE_NAME = file.getName().split("\\.")[1];
         HuffmanOperation.INPUT_COMPRESSION_FILE = file;
 
         HuffmanOperation.BYTES_IN_FILE =new byte[(int)file.length()];
