@@ -2,6 +2,7 @@ package com.birzeit.huffman.operation;
 
 import com.birzeit.huffman.dto.HuffmanNode;
 import com.birzeit.huffman.dto.Node;
+import com.birzeit.huffman.file.FileReader;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,5 +24,24 @@ public class HuffmanOperation {
     public static String TYPE_FILE = "";
     public static String HEADER_LENGTH_STRING = "";
     public static String DATA_LENGTH = "";
-    
+
+    public static void main(String[] args) {
+
+        FileReader.readFile(new File("C:\\Users\\twitter\\IdeaProjects\\Huffman\\test.txt"));
+        System.out.println("Print Frequency Array");
+        for (int i = 0; i < FREQ_ARR.length; i++) {
+            if (FREQ_ARR[i] > 0) {
+                System.out.println("Byte: " + (i - 128) + " Frequency: " + FREQ_ARR[i]);
+            }
+        }
+        System.out.println("------------------------");
+        System.out.println("Print Number of Different Bytes: " + NUMBER_DIFFERENT_BYTES);
+        System.out.println("------------------------");
+        System.out.println("Print Bytes in File");
+        for (int i = 0; i < BYTES_IN_FILE.length; i++) {
+            System.out.println("Byte: " + BYTES_IN_FILE[i]);
+        }
+
+    }
+
 }

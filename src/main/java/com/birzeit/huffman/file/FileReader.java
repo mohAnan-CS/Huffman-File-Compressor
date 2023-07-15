@@ -9,24 +9,26 @@ import java.io.IOException;
 
 public class FileReader {
 
-    private static  void readFile(File file){
+    public static  void readFile(File file){
 
-        HuffmanOperationbytes_in_file =new byte[(int)file.length()];
+        HuffmanOperation.INPUT_COMPRESSION_FILE = file;
+
+        HuffmanOperation.BYTES_IN_FILE =new byte[(int)file.length()];
         //read file in bytes
         try(FileInputStream inputStream= new FileInputStream(file)) {
-            inputStream.read(bytes_in_file);
+            inputStream.read(HuffmanOperation.BYTES_IN_FILE);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        frq = new int[256];
-        for (int i = 0; i < bytes_in_file.length; i++)
-            frq[bytes_in_file[i] + 128]++; //byte can take is from -128 to 127.
+        HuffmanOperation.FREQ_ARR = new int[256];
+        for (int i = 0; i < HuffmanOperation.BYTES_IN_FILE.length; i++)
+            HuffmanOperation.FREQ_ARR[HuffmanOperation.BYTES_IN_FILE[i] + 128]++; //byte can take is from -128 to 127.
 
-        for (int i = 0; i < frq.length; i++)
-            if (frq[i] > 0)
-                number_different_bytes++;   // if freq[i] > 0 this mean a new byte in file
+        for (int i = 0; i < HuffmanOperation.FREQ_ARR.length; i++)
+            if (HuffmanOperation.FREQ_ARR[i] > 0)
+                HuffmanOperation.NUMBER_DIFFERENT_BYTES++;   // if freq[i] > 0 this mean a new byte in file
 
     }
 
