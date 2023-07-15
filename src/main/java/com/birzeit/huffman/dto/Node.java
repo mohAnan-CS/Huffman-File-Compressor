@@ -1,21 +1,21 @@
 package com.birzeit.huffman.dto;
 
 public class Node implements Comparable<Node> {
-    private String hCode;
+    private String huffmanCode;
     private HuffmanNode val;
 
-    public Node(String hCode, HuffmanNode val) {
+    public Node(String huffmanCode, HuffmanNode val) {
         super();
-        this.hCode = hCode;
+        this.huffmanCode = huffmanCode;
         this.val = val;
     }
 
-    public String gethCode() {
-        return hCode;
+    public String getHuffmanCode() {
+        return huffmanCode;
     }
 
-    public void sethCode(String hCode) {
-        this.hCode = hCode;
+    public void setHuffmanCode(String hCode) {
+        this.huffmanCode = hCode;
     }
 
     public HuffmanNode getVal() {
