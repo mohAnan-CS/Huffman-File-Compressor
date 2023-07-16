@@ -1,6 +1,7 @@
 package com.birzeit.huffman.operation;
 
 import com.birzeit.huffman.compression.HuffmanCompressor;
+import com.birzeit.huffman.compression.HuffmanDeCompressor;
 import com.birzeit.huffman.dto.HuffmanNode;
 import com.birzeit.huffman.dto.Node;
 import com.birzeit.huffman.file.BinaryStreamIn;
@@ -96,10 +97,58 @@ public class HuffmanOperation {
         }
     }
 
-    public static void decompress() throws FileNotFoundException {
+    public static void decompress(File file) throws FileNotFoundException {
 
         BinaryStreamIn binaryReader = new BinaryStreamIn(INPUT_DECOMPRESSION_FILE);
-        splitHeader(binaryReader);
+        HuffmanDeCompressor.splitHeader(binaryReader);
+
+        if (file != null){
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(file);
+                BinaryStreamOut bout = new BinaryStreamOut(out);
+
+                Long longDataLength = Long.parseLong(HuffmanOperation.DATA_LENGTH);
+
+                int length = Integer.parseInt(HuffmanOperation.HEADER_LENGTH_STRING);
+
+                StringBuilder headerAsStringBuilder = new StringBuilder("");
+                for (int i = 0; i < length; i++) {
+                    boolean b = binaryReader.readBoolean();
+                    if (b)
+                        headerAsStringBuilder.append("1");
+                    else
+                        headerAsStringBuilder.append("0");
+                }
+                HuffmanOperation.HEADER_AS_STRING = headerAsStringBuilder.toString();
+                HuffmanNode root = HuffmanDeCompressor.decodeHeader();
+                for (int i = 0; i < longDataLength; i++) {
+                    HuffmanNode node = root;
+                    while (!node.isLeaf()) {
+                        boolean bit = binaryReader.readBoolean();
+                        if (bit)
+                            node = node.getRight();
+                        else
+                            node = node.getLeft();
+                    }
+                    bout.write(node.getVal());
+                }
+                bout.close();
+
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }finally {
+                try {
+                    if (out != null) {
+                        out.close();
+                    }
+                } catch (IOException ioe) {
+                    System.out.println("Error while closing stream: " + ioe);
+                }
+
+            }
+        }
+
 
     }
 

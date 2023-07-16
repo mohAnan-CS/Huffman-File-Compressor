@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -66,7 +67,15 @@ public class HuffmanController implements Initializable {
 
         }else if (decompressRadioButton.isSelected()){
 
-
+            // Set extension filter
+            FileChooser decompressFileChooser = new FileChooser();
+            decompressFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Huff Files", "*.huff"));
+            HuffmanOperation.INPUT_DECOMPRESSION_FILE = decompressFileChooser.showOpenDialog(HuffmanApplication.STAGE);
+            if (HuffmanOperation.INPUT_DECOMPRESSION_FILE != null) {
+                filePathText.setText(HuffmanOperation.INPUT_DECOMPRESSION_FILE.getAbsolutePath());
+            } else {
+                filePathText.setText("No file selected");
+            }
 
         }else{
             showInformationAlert("Information Dialog", null, "Please select compress or decompress to browse file");
@@ -122,9 +131,19 @@ public class HuffmanController implements Initializable {
     }
 
     @FXML
-    void decompressOnAction() {
+    void decompressOnAction() throws FileNotFoundException {
 
         System.out.println("Decompressing ...");
+        FileChooser fileChooser = new FileChooser();
+
+        // Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                HuffmanOperation.TYPE_FILE + " files (*."
+                        + HuffmanOperation.TYPE_FILE + ")", "*."
+                + HuffmanOperation.TYPE_FILE);
+
+        File file = fileChooser.showSaveDialog(HuffmanApplication.STAGE);
+        HuffmanOperation.decompress(file);
 
     }
 
