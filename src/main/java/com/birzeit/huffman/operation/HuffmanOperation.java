@@ -52,17 +52,17 @@ public class HuffmanOperation {
         System.out.println("------------------------");
         System.out.println("Print File name ");
         System.out.println(FILE_NAME);
-        compress();
+
 
     }
 
-    public static void compress(){
+    public static void compress(File file){
 
         if(INPUT_COMPRESSION_FILE != null) {
 
             FileOutputStream outputStream = null; //write in file as stream of bytes
             try {
-                outputStream = new FileOutputStream(INPUT_COMPRESSION_FILE); //binary and bit stream to write in file
+                outputStream = new FileOutputStream(file); //binary and bit stream to write in file
                 BinaryStreamOut binaryStream = new BinaryStreamOut(outputStream);
                 BitOutputStream bitOutputStream = new BitOutputStream(outputStream); // write string in file
                 HuffmanCompressor.initializePriorityQueue();
@@ -74,7 +74,7 @@ public class HuffmanOperation {
                 HUFFMAN_CODE_LIST = HuffmanCompressor.addCode(HUFFMAN_TREE_ROOT);
                 System.out.println("Get huffman code list ...");
                 HuffmanCompressor.writeCompressedData(bitOutputStream, binaryStream);
-                ACTUAL_FILE_LENGTH = (int) INPUT_COMPRESSION_FILE.length();  // length of new file
+                ACTUAL_FILE_LENGTH = (int) file.length();  // length of new file
                 RATE = ((double) (BYTES_IN_FILE.length - ACTUAL_FILE_LENGTH) / BYTES_IN_FILE.length) * 100;
                 String ratio = RATE + "";
                 if (ratio.length() > 5) {
