@@ -64,6 +64,12 @@ public class HuffmanController implements Initializable {
                 filePathText.setText("No file selected");
             }
 
+        }else if (decompressRadioButton.isSelected()){
+
+
+
+        }else{
+            showInformationAlert("Information Dialog", null, "Please select compress or decompress to browse file");
         }
 
     }
@@ -91,10 +97,28 @@ public class HuffmanController implements Initializable {
                     HuffmanOperation.RATE
             );
 
+            showInformationAlert("Information Dialog", null, "File compressed successfully");
+
         } else {
-            System.out.println("Please select file");
+            showInformationAlert("Information Dialog", null, "Please select file to compress");
         }
 
+    }
+
+    private void showErrorAlert(String title, String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
+
+    private void showInformationAlert(String title, String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
     }
 
     @FXML

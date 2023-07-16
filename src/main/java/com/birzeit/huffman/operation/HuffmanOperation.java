@@ -3,6 +3,7 @@ package com.birzeit.huffman.operation;
 import com.birzeit.huffman.compression.HuffmanCompressor;
 import com.birzeit.huffman.dto.HuffmanNode;
 import com.birzeit.huffman.dto.Node;
+import com.birzeit.huffman.file.BinaryStreamIn;
 import com.birzeit.huffman.file.BinaryStreamOut;
 import com.birzeit.huffman.file.BitOutputStream;
 import com.birzeit.huffman.file.FileReader;
@@ -95,7 +96,10 @@ public class HuffmanOperation {
         }
     }
 
-    public static void decompress(){
+    public static void decompress() throws FileNotFoundException {
+
+        BinaryStreamIn binaryReader = new BinaryStreamIn(INPUT_DECOMPRESSION_FILE);
+        splitHeader(binaryReader);
 
     }
 
