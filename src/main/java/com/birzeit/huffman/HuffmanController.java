@@ -1,6 +1,10 @@
 package com.birzeit.huffman;
 
+import com.birzeit.huffman.dto.HuffmanTableView;
+import com.birzeit.huffman.file.FileReader;
 import com.birzeit.huffman.operation.HuffmanOperation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
@@ -15,16 +19,16 @@ import java.util.ResourceBundle;
 
 public class HuffmanController implements Initializable {
     @FXML
-    private TableView<?> huffmanTableView;
+    private TableView<HuffmanTableView> huffmanTableView;
 
     @FXML
-    private TableColumn<?, ?> character;
+    private TableColumn<HuffmanTableView, String> character;
 
     @FXML
-    private TableColumn<?, ?> frequency;
+    private TableColumn<HuffmanTableView, String> frequency;
 
     @FXML
-    private TableColumn<?, ?> code;
+    private TableColumn<HuffmanTableView, String> code;
 
     @FXML
     private TextField filePathText;
@@ -35,11 +39,14 @@ public class HuffmanController implements Initializable {
     @FXML
     private RadioButton decompressRadioButton;
 
+    private ObservableList<HuffmanTableView> huffmanObservableList = FXCollections.observableArrayList();
+
     @FXML
     void browseFileOnAction() {
 
 
         if (compressRadioButton.isSelected()) {
+
             // Set extension filter
             FileChooser compressFileChooser = new FileChooser();
             compressFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"),
@@ -55,8 +62,8 @@ public class HuffmanController implements Initializable {
             } else {
                 filePathText.setText("No file selected");
             }
-        }
 
+        }
 
     }
 
@@ -64,7 +71,20 @@ public class HuffmanController implements Initializable {
     @FXML
     void compressOnAction() {
 
-        System.out.println("Compressing ...");
+        if (HuffmanOperation.INPUT_COMPRESSION_FILE != null) {
+
+            FileChooser fileChooser =new FileChooser();
+            //set extension filter to make if just huffman type file
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("huff files (*.huff)", "*.huff");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(HuffmanApplication.STAGE);
+            System.out.println("file new path for huff " + file.getAbsolutePath());
+            FileReader.readFile(HuffmanOperation.INPUT_COMPRESSION_FILE);
+            HuffmanOperation.compress(file);
+
+        } else {
+            System.out.println("Please select file");
+        }
 
     }
 
@@ -101,6 +121,14 @@ public class HuffmanController implements Initializable {
                 compressRadioButton.setSelected(false);
             }
         });
+
+    }
+
+    private void preparedTableView() {
+
+        character.setCellValueFactory(cellData -> cellData.getValue().characterProperty());
+        frequency.setCellValueFactory(cellData -> cellData.getValue().frequencyProperty());
+        code.setCellValueFactory(cellData -> cellData.getValue().codeProperty());
 
     }
 }
