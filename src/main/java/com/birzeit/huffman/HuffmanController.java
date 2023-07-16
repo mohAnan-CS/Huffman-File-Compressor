@@ -11,6 +11,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -81,6 +82,8 @@ public class HuffmanController implements Initializable {
             System.out.println("file new path for huff " + file.getAbsolutePath());
             FileReader.readFile(HuffmanOperation.INPUT_COMPRESSION_FILE);
             HuffmanOperation.compress(file);
+            fillObservableList();
+            huffmanTableView.setItems(huffmanObservableList);
 
         } else {
             System.out.println("Please select file");
@@ -105,6 +108,7 @@ public class HuffmanController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         preparedRadioButton();
+        setAllCellValueFactory();
 
     }
 
@@ -124,11 +128,28 @@ public class HuffmanController implements Initializable {
 
     }
 
-    private void preparedTableView() {
+    private void fillObservableList(){
 
-        character.setCellValueFactory(cellData -> cellData.getValue().characterProperty());
-        frequency.setCellValueFactory(cellData -> cellData.getValue().frequencyProperty());
-        code.setCellValueFactory(cellData -> cellData.getValue().codeProperty());
+        //loop on freq array to fill observable list
+        for (int i = 0; i < HuffmanOperation.HUFFMAN_CODE_LIST.size(); i++) {
+            String character = String.valueOf((char) HuffmanOperation.HUFFMAN_CODE_LIST.get(i).getVal().getVal());
+            String code = HuffmanOperation.HUFFMAN_CODE_LIST.get(i).getHuffmanCode();
+            String frequency = String.valueOf(HuffmanOperation.HUFFMAN_CODE_LIST.get(i).getVal().getFreq());
+            HuffmanTableView huffmanTableView = new HuffmanTableView(character, frequency, code);
+            huffmanObservableList.add(huffmanTableView);
+        }
+
+//        (char) huffmanCodes.get(i).getVal().getVal() + ") --> "
+//                + huffmanCodes.get(i).getVal().getFreq() + " --> " + huffmanCodes.get(i).gethCode()
+//                + "\n");
+
+    }
+
+    public void setAllCellValueFactory(){
+
+        character.setCellValueFactory(new PropertyValueFactory<>("character"));
+        frequency.setCellValueFactory(new PropertyValueFactory<>("frequency"));
+        code.setCellValueFactory(new PropertyValueFactory<>("code"));
 
     }
 }
