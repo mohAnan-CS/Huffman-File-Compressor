@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 
@@ -41,6 +38,9 @@ public class HuffmanController implements Initializable {
     private RadioButton decompressRadioButton;
 
     private ObservableList<HuffmanTableView> huffmanObservableList = FXCollections.observableArrayList();
+
+    @FXML
+    private TextArea compressionDataTextArea;
 
     @FXML
     void browseFileOnAction() {
@@ -82,8 +82,14 @@ public class HuffmanController implements Initializable {
             System.out.println("file new path for huff " + file.getAbsolutePath());
             FileReader.readFile(HuffmanOperation.INPUT_COMPRESSION_FILE);
             HuffmanOperation.compress(file);
+
             fillObservableList();
             huffmanTableView.setItems(huffmanObservableList);
+            setDataCompressionTextArea(
+                    HuffmanOperation.HEADER_LENGTH,
+                    HuffmanOperation.ACTUAL_FILE_LENGTH,
+                    HuffmanOperation.RATE
+            );
 
         } else {
             System.out.println("Please select file");
@@ -139,10 +145,6 @@ public class HuffmanController implements Initializable {
             huffmanObservableList.add(huffmanTableView);
         }
 
-//        (char) huffmanCodes.get(i).getVal().getVal() + ") --> "
-//                + huffmanCodes.get(i).getVal().getFreq() + " --> " + huffmanCodes.get(i).gethCode()
-//                + "\n");
-
     }
 
     public void setAllCellValueFactory(){
@@ -150,6 +152,14 @@ public class HuffmanController implements Initializable {
         character.setCellValueFactory(new PropertyValueFactory<>("character"));
         frequency.setCellValueFactory(new PropertyValueFactory<>("frequency"));
         code.setCellValueFactory(new PropertyValueFactory<>("code"));
+
+    }
+
+    private void setDataCompressionTextArea(int fileHeadLength, int actualDataLength, double compressionRate){
+
+        compressionDataTextArea.setText("File Head Length: " + fileHeadLength + "\n" +
+                "Actual Data Length: " + actualDataLength + "\n" +
+                "Compression Rate: " + compressionRate + " % \n");
 
     }
 }
